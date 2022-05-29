@@ -1,24 +1,28 @@
 {
   "name": "Weather-App",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://Ipcot.github.io/Weather-App",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html"
+    "dev": "parcel src/*.html",
+    "build": "parcel build src/*.html --public-url /Weather-App/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ipcot/Weather-App.git"
+    "url": "git+https://github.com/goitacademy/parcel-project-template.git"
   },
   "keywords": [],
-  "author": "Yuriy Pokhyl <woully@gmail.com>",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Ipcot/Weather-App/issues"
+    "url": "https://github.com/goitacademy/parcel-project-template/issues"
   },
-  "homepage": "https://github.com/Ipcot/Weather-App#readme",
   "devDependencies": {
-    "parcel": "^2.6.0"
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-handlebars-precompile": "^1.0.2",
+    "parcel-plugin-nuke-dist": "^1.0.1",
+    "posthtml-include": "^1.6.2",
+    "sass": "^1.32.8"
   }
 }
