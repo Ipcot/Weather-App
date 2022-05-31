@@ -1,40 +1,43 @@
+import axios from 'axios';
 
+const refs = {
+  weatherBlock: document.querySelector('#weather'),
+  form: document.querySelector('.form'),
+};
+let city = '';
+refs.form.addEventListener('submit', onSubmitHandler);
 
-const weatherBlock = document.querySelector("#weather")
-
-async function loadWeather(e) {
-    weatherBlock.innerHTML = `
-    <div class="weather__loading">
-    <img src="./img/about-us-img-1.jpg" alt="loading...">
-    </div>`;
-
-    const server = `https://api.openweathermap.org/data/2.5/weather?q=Haaltert&units=metric&appid=41557fa4b8274a974a05a8a942e16556`
-    const response = await fetch(server, {
-        method: "GET",
-    });
-    const responseResult = await response.json();
-
-    if (response.ok) {
-        getWeather(responseResult);
-    } else {
-        weatherBlock.innerHTML = responseResult.message;
-    }
-        
+function onSubmitHandler(e) {
+  e.preventDefault();
+  city = e.currentTarget.elements.search.value;
+  loadWeather(city);
 }
 
-if (weatherBlock) {
-    loadWeather();
+async function loadWeather(city) {
+  // refs.weatherBlock.innerHTML = `
+  //   <div class="weather__loading">
+  //     <img src="./img/loading.gif" width="60px" alt="loading..." />
+  //   </div>`;
 
+  const server = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=41557fa4b8274a974a05a8a942e16556`;
+  const response = await axios(server);
+  console.log(response.data);
+
+  getWeather(response.data);
+}
+
+if (refs.weatherBlock) {
+  loadWeather('Haaltert');
 }
 
 function getWeather(data) {
-    const location = data.name;
-    const temp = Math.round(data.main.temp);
-    const feelsLike = Math.round(data.main.feels_like);
-    const weatherStatus = data.weather[0].main;
-    const weatherIcon = data.weather[0].icon;
+  const location = data.name;
+  const temp = Math.round(data.main.temp);
+  const feelsLike = Math.round(data.main.feels_like);
+  const weatherStatus = data.weather[0].main;
+  const weatherIcon = data.weather[0].icon;
 
-    const template = `
+  const template = `
     <div class="weather__header">
           <div class="weather__main">
             <div class="weather__city">${location}</div>
@@ -47,7 +50,10 @@ function getWeather(data) {
             />
           </div>
         </div>
-        <div class="weather__temp">${temp}</div>
-        <div class="weather__feels-like">Feels like: ${feelsLike}</div>`
-    weatherBlock.innerHTML = template;
+         <div class="weather__temp">${temp}</div>
+        <div class="weather__feels-like">Feels like: ${feelsLike}</div>
+        <div class="weather__loading">
+      <img src="./img/loading.gif" width="60px" alt="loading..." />
+    </div>`;
+  refs.weatherBlock.innerHTML = template;
 }
