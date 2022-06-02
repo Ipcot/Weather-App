@@ -36,6 +36,7 @@ function getWeather(data) {
   const feelsLike = Math.round(data.main.feels_like);
   const weatherStatus = data.weather[0].main;
   const weatherIcon = data.weather[0].icon;
+  const humidity = data.main.humidity;
 
   const template = `
     <div class="weather__header">
@@ -48,8 +49,11 @@ function getWeather(data) {
               src="https://openweathermap.org/img/w/${weatherIcon}.png"
               alt="${weatherStatus}"
             />
+            
           </div>
+          
         </div>
+        <div class="weather__status">humidity ${humidity}%</div>
          <div class="weather__temp">${temp}</div>
         <div class="weather__feels-like">Feels like: ${feelsLike}</div>
         <div class="weather__loading">
